@@ -1,0 +1,1485 @@
+global path aas filem chonspm filen mz300...
+va12 va11 va10 va9 va8 va7 va6 va5 va4 va3 va2 va1 va15 va14 va13;
+ 
+ 
+b=inputdlg({'min Mass.','max Mass.','max C num.','max N num.','max S num.','max P num.',...
+    'max Cl','max Br','max I','max C13','min DBE-O','max DBE-O','max mass error(ppb)','min S/N','Ion mode'},'Parameters_set',[1 40],{num2str(100),num2str(800),...
+   num2str(60),num2str(5),num2str(2),num2str(2),num2str(3),num2str(3),num2str(3),num2str(0),num2str(-10),num2str(10),...
+   num2str(500),num2str(4),num2str(1)});
+ 
+[va1,status1]=str2num(b{1});
+[va2,status2]=str2num(b{2});
+[va3,status3]=str2num(b{3});
+[va4,status4]=str2num(b{4});
+[va5,status5]=str2num(b{5});
+[va6,status6]=str2num(b{6});
+[va7,status7]=str2num(b{7});
+[va8,status8]=str2num(b{8});
+[va9,status9]=str2num(b{9});
+[va10,status10]=str2num(b{10});
+[va11,status11]=str2num(b{11});
+[va12,status12]=str2num(b{12});
+[va13,status13]=str2num(b{13});
+[va14,status14]=str2num(b{14});
+[va15,status15]=str2num(b{15});
+if va15==1;
+   run('cl_pos.m');
+else if va15==-1;
+   run('cl_neg.m');
+end;
+end;
+ 
+mb=msgbox('finished!');
+ 
+newIcon=javax.swing.ImageIcon('1.png');
+ 
+jFrame = get(handle(mb),'javaframe'); 
+jFrame.setFigureIcon(newIcon);
+pause(2);
+close(mb);
+
+global path aas filem chonspm filen mz300...
+va12 va11 va10 va9 va8 va7 va6 va5 va4 va3 va2 va1 va15 va14 va13;
+ 
+[filen,path,filindex] = uigetfile({'*.xlsx';'*.csv'},...
+   'Select One or More Files','MultiSelect', 'on');
+if filindex~=0;
+ 
+ 
+filen=cellstr(filen);
+ aas=size(filen);
+ for ii=1:aas(2);
+     filep{ii}=strcat(path,filen{ii});
+ if ~isempty(strfind(filen{ii},'.xlsx'));
+     filem{ii}=readtable(filep{ii});
+ else
+   filem{ii}=readtable(filep{ii});
+   filem{ii}=filem{ii}(:,1:end-1);
+   filen{ii}=strrep(filen{ii},'.csv','.xlsx');
+ end;
+ 
+ 
+ chonspm{ii}=filem{ii};
+ 
+ 
+ end;
+end;
+ 
+          bar = waitbar(0,' being in process...');
+newIcon=javax.swing.ImageIcon('1.png');
+ 
+jFrame = get(handle(bar),'javaframe'); 
+jFrame.setFigureIcon(newIcon);
+ 
+a=load('c60_6x_13_1000_c12eclist.mat');
+a1=a.c12eclist;
+ 
+if status11==0&status12==0;
+a1=a1(a1(:,1)>=va1,:);
+a1=a1(a1(:,1)<=va2,:);
+a1=a1(a1(:,2)<=va3,:);
+a1=a1(a1(:,5)<=va4,:);
+a1=a1(a1(:,6)<=va5,:);
+a1=a1(a1(:,7)<=va6,:);
+a1=a1(a1(:,9)<=va7,:);
+a1=a1(a1(:,10)<=va8,:);
+a1=a1(a1(:,11)<=va9,:);
+a1=a1(a1(:,8)<=va10,:);
+ 
+c12eclist=a1;
+ mz300=c12eclist(c12eclist(:,1)<=300,:);
+ mz400=c12eclist(c12eclist(:,1)<=400&c12eclist(:,1)>300,:);
+ mz500=c12eclist(c12eclist(:,1)<=500&c12eclist(:,1)>400,:);
+ mz550=c12eclist(c12eclist(:,1)<=550&c12eclist(:,1)>500,:);
+mz600=c12eclist(c12eclist(:,1)<=600&c12eclist(:,1)>550,:);
+mz650=c12eclist(c12eclist(:,1)<=650&c12eclist(:,1)>600,:);
+ mz675=c12eclist(c12eclist(:,1)<=675&c12eclist(:,1)>650,:);
+mz700=c12eclist(c12eclist(:,1)<=700&c12eclist(:,1)>675,:);
+mz725=c12eclist(c12eclist(:,1)<=725&c12eclist(:,1)>700,:);
+mz750=c12eclist(c12eclist(:,1)<=750&c12eclist(:,1)>725,:);
+mz775=c12eclist(c12eclist(:,1)<=775&c12eclist(:,1)>750,:);
+mz800=c12eclist(c12eclist(:,1)<=800&c12eclist(:,1)>775,:);
+mz825=c12eclist(c12eclist(:,1)<=825&c12eclist(:,1)>800,:);
+mz850=c12eclist(c12eclist(:,1)<=850&c12eclist(:,1)>825,:);
+mz875=c12eclist(c12eclist(:,1)<=875&c12eclist(:,1)>850,:);
+mz900=c12eclist(c12eclist(:,1)<=900&c12eclist(:,1)>875,:);
+mz925=c12eclist(c12eclist(:,1)<=925&c12eclist(:,1)>900,:);
+mz950=c12eclist(c12eclist(:,1)<=950&c12eclist(:,1)>925,:);
+mz975=c12eclist(c12eclist(:,1)<=975&c12eclist(:,1)>950,:);
+mz1000=c12eclist(c12eclist(:,1)<=1000&c12eclist(:,1)>975,:);
+clear c12eclist;
+clear a;
+clear a1;
+else if status11==1&status12==1;
+        
+a1=a1(a1(:,1)>=va1,:);
+a1=a1(a1(:,1)<=va2,:);
+a1=a1(a1(:,2)<=va3,:);
+a1=a1(a1(:,5)<=va4,:);
+a1=a1(a1(:,6)<=va5,:);
+a1=a1(a1(:,7)<=va6,:);
+a1=a1(a1(:,9)<=va7,:);
+a1=a1(a1(:,10)<=va8,:);
+a1=a1(a1(:,11)<=va9,:);
+a1=a1(a1(:,8)<=va10,:);
+ 
+a1(:,12)=(a1(:,2)+a1(:,8)-0.5*(a1(:,3)+a1(:,9)+a1(:,10)+a1(:,11) +1)+ 0.5*a1(:,5) + 0.5*a1(:,7) + 1)-a1(:,4); 
+a1=a1(a1(:,12)>=va11,:);
+a1=a1(a1(:,12)<=va12,:);
+a1(:,12)=[];
+ 
+ 
+c12eclist=a1;
+ mz300=c12eclist(c12eclist(:,1)<=300,:);
+ mz400=c12eclist(c12eclist(:,1)<=400&c12eclist(:,1)>300,:);
+ mz500=c12eclist(c12eclist(:,1)<=500&c12eclist(:,1)>400,:);
+ mz550=c12eclist(c12eclist(:,1)<=550&c12eclist(:,1)>500,:);
+mz600=c12eclist(c12eclist(:,1)<=600&c12eclist(:,1)>550,:);
+mz650=c12eclist(c12eclist(:,1)<=650&c12eclist(:,1)>600,:);
+ mz675=c12eclist(c12eclist(:,1)<=675&c12eclist(:,1)>650,:);
+mz700=c12eclist(c12eclist(:,1)<=700&c12eclist(:,1)>675,:);
+mz725=c12eclist(c12eclist(:,1)<=725&c12eclist(:,1)>700,:);
+mz750=c12eclist(c12eclist(:,1)<=750&c12eclist(:,1)>725,:);
+mz775=c12eclist(c12eclist(:,1)<=775&c12eclist(:,1)>750,:);
+mz800=c12eclist(c12eclist(:,1)<=800&c12eclist(:,1)>775,:);
+mz825=c12eclist(c12eclist(:,1)<=825&c12eclist(:,1)>800,:);
+mz850=c12eclist(c12eclist(:,1)<=850&c12eclist(:,1)>825,:);
+mz875=c12eclist(c12eclist(:,1)<=875&c12eclist(:,1)>850,:);
+mz900=c12eclist(c12eclist(:,1)<=900&c12eclist(:,1)>875,:);
+mz925=c12eclist(c12eclist(:,1)<=925&c12eclist(:,1)>900,:);
+mz950=c12eclist(c12eclist(:,1)<=950&c12eclist(:,1)>925,:);
+mz975=c12eclist(c12eclist(:,1)<=975&c12eclist(:,1)>950,:);
+mz1000=c12eclist(c12eclist(:,1)<=1000&c12eclist(:,1)>975,:);
+clear c12eclist;
+clear a;
+clear a1;
+ 
+    end;
+end;
+waitbar(1/5,bar);
+ 
+peaklist=filem;
+ 
+Acc = va13; 
+ 
+ 
+ 
+for bb=1:aas(2);
+    filem{bb}=filem{bb}(filem{bb}.S_N>=va14,:);
+    
+    
+   [L_file, sid_n]= size(filem{bb}.m_z); 
+   t1=zeros(L_file,sid_n);
+    for i= 1: L_file-1
+   
+                   if filem{bb}{i+1,'m_z'}==filem{bb}{i,'m_z'}
+                       
+                       filem{bb}{j,:}=[];
+                    end
+             end
+  
+    
+      t1=filem{bb};
+ 
+ 
+ 
+n=0;
+a=size(t1.m_z);
+c12formula=zeros(9000000,16);
+for a1=1:a(1);
+         Tolerance = Acc * t1{a1,'m_z'} / 1e9; 
+   if t1{a1,'m_z'}<=300;
+       
+      mzline = find(t1{a1,'m_z'}> (mz300(:,1) - Tolerance) & t1{a1,'m_z'} < ( mz300(:,1)+ Tolerance));
+     if mzline>0 
+         c=size(mzline);
+       for  d=1:c(1);
+         n=n+1;      
+ c12formula(n,16)=c(1);
+ 
+ 
+c12formula(n, 1) = t1{a1,'m_z'};
+ c12formula(n, 2) = mz300(mzline(d),1);
+ c12formula(n,3) = mz300(mzline(d),2); c12formula(n, 4) = mz300(mzline(d),3);
+ c12formula(n, 5) = mz300(mzline(d),4); c12formula(n, 6) = mz300(mzline(d),5); c12formula(n, 7) = mz300(mzline(d),6);
+ c12formula(n, 8) = mz300(mzline(d),7);c12formula(n, 9) = mz300(mzline(d),8);c12formula(n, 10) = mz300(mzline(d),9);
+ c12formula(n, 11) = mz300(mzline(d),10);  c12formula(n, 12) = mz300(mzline(d),11); 
+ c12formula(n, 13) = t1{a1,'I'};c12formula(n, 14) = t1{a1,'I_'};...
+     c12formula(n, 15) = t1{a1,'S_N'};
+     end;
+     end;
+end;
+ 
+if t1{a1,'m_z'}<=400 & t1{a1,'m_z'}>300;
+       
+      mzline = find(t1{a1,'m_z'}> (mz400(:,1) - Tolerance) & t1{a1,'m_z'} < ( mz400(:,1)+ Tolerance));
+     if mzline>0 
+         c=size(mzline);
+       for  d=1:c(1);
+         n=n+1;      
+ c12formula(n,16)=c(1);
+ 
+ 
+c12formula(n, 1) = t1{a1,'m_z'};
+ c12formula(n, 2) = mz400(mzline(d),1);
+ c12formula(n,3) = mz400(mzline(d),2); c12formula(n, 4) = mz400(mzline(d),3);
+ c12formula(n, 5) = mz400(mzline(d),4); c12formula(n, 6) = mz400(mzline(d),5); c12formula(n, 7) = mz400(mzline(d),6);
+ c12formula(n, 8) = mz400(mzline(d),7);c12formula(n, 9) = mz400(mzline(d),8);c12formula(n, 10) = mz400(mzline(d),9);
+ c12formula(n, 11) = mz400(mzline(d),10);  c12formula(n, 12) = mz400(mzline(d),11); 
+ c12formula(n, 13) = t1{a1,'I'};c12formula(n, 14) = t1{a1,'I_'};...
+     c12formula(n, 15) = t1{a1,'S_N'};
+     end;
+     end;
+     
+end;
+ 
+if t1{a1,'m_z'}<=500 & t1{a1,'m_z'}>400;
+       
+      mzline = find(t1{a1,'m_z'}> (mz500(:,1) - Tolerance) & t1{a1,'m_z'} < ( mz500(:,1)+ Tolerance));
+     if mzline>0 
+         c=size(mzline);
+       for  d=1:c(1);
+         n=n+1;      
+ c12formula(n,16)=c(1);
+ 
+ 
+c12formula(n, 1) = t1{a1,'m_z'};
+ c12formula(n, 2) = mz500(mzline(d),1);
+ c12formula(n,3) = mz500(mzline(d),2); c12formula(n, 4) = mz500(mzline(d),3);
+ c12formula(n, 5) = mz500(mzline(d),4); c12formula(n, 6) = mz500(mzline(d),5); c12formula(n, 7) = mz500(mzline(d),6);
+ c12formula(n, 8) = mz500(mzline(d),7);c12formula(n, 9) = mz500(mzline(d),8);c12formula(n, 10) = mz500(mzline(d),9);
+ c12formula(n, 11) = mz500(mzline(d),10);  c12formula(n, 12) = mz500(mzline(d),11); 
+ c12formula(n, 13) = t1{a1,'I'};c12formula(n, 14) = t1{a1,'I_'};...
+     c12formula(n, 15) = t1{a1,'S_N'};
+     end;
+     end;
+ 
+end;
+ 
+ 
+if t1{a1,'m_z'}<=550 & t1{a1,'m_z'}>500;
+       
+      mzline = find(t1{a1,'m_z'}> (mz550(:,1) - Tolerance) & t1{a1,'m_z'} < ( mz550(:,1)+ Tolerance));
+     if mzline>0 
+         c=size(mzline);
+       for  d=1:c(1);
+         n=n+1;      
+ c12formula(n,16)=c(1);
+ 
+ 
+c12formula(n, 1) = t1{a1,'m_z'};
+ c12formula(n, 2) = mz550(mzline(d),1);
+ c12formula(n,3) = mz550(mzline(d),2); c12formula(n, 4) = mz550(mzline(d),3);
+ c12formula(n, 5) = mz550(mzline(d),4); c12formula(n, 6) = mz550(mzline(d),5); c12formula(n, 7) = mz550(mzline(d),6);
+ c12formula(n, 8) = mz550(mzline(d),7);c12formula(n, 9) = mz550(mzline(d),8);c12formula(n, 10) = mz550(mzline(d),9);
+ c12formula(n, 11) = mz550(mzline(d),10);  c12formula(n, 12) = mz550(mzline(d),11); 
+ c12formula(n, 13) = t1{a1,'I'};c12formula(n, 14) = t1{a1,'I_'};...
+     c12formula(n, 15) = t1{a1,'S_N'};
+     end;
+     end;
+end;
+ 
+if t1{a1,'m_z'}<=600 & t1{a1,'m_z'}>550;
+       
+      mzline = find(t1{a1,'m_z'}> (mz600(:,1) - Tolerance) & t1{a1,'m_z'} < ( mz600(:,1)+ Tolerance));
+     if mzline>0 
+         c=size(mzline);
+       for  d=1:c(1);
+         n=n+1;      
+c12formula(n,16)=c(1);
+ 
+ 
+c12formula(n, 1) = t1{a1,'m_z'};
+ c12formula(n, 2) = mz600(mzline(d),1);
+ c12formula(n,3) = mz600(mzline(d),2); c12formula(n, 4) = mz600(mzline(d),3);
+ c12formula(n, 5) = mz600(mzline(d),4); c12formula(n, 6) = mz600(mzline(d),5); c12formula(n, 7) = mz600(mzline(d),6);
+ c12formula(n, 8) = mz600(mzline(d),7);c12formula(n, 9) = mz600(mzline(d),8);c12formula(n, 10) = mz600(mzline(d),9);
+ c12formula(n, 11) = mz600(mzline(d),10);  c12formula(n, 12) = mz600(mzline(d),11); 
+ c12formula(n, 13) = t1{a1,'I'};c12formula(n, 14) = t1{a1,'I_'};...
+     c12formula(n, 15) = t1{a1,'S_N'};
+     end;
+end;
+end;
+if t1{a1,'m_z'}<=650 & t1{a1,'m_z'}>600;
+       
+      mzline = find(t1{a1,'m_z'}> (mz650(:,1) - Tolerance) & t1{a1,'m_z'} < ( mz650(:,1)+ Tolerance));
+     if mzline>0 
+         c=size(mzline);
+       for  d=1:c(1);
+         n=n+1;      
+ c12formula(n,16)=c(1);
+ 
+ 
+c12formula(n, 1) = t1{a1,'m_z'};
+ c12formula(n, 2) = mz650(mzline(d),1);
+ c12formula(n,3) = mz650(mzline(d),2); c12formula(n, 4) = mz650(mzline(d),3);
+ c12formula(n, 5) = mz650(mzline(d),4); c12formula(n, 6) = mz650(mzline(d),5); c12formula(n, 7) = mz650(mzline(d),6);
+ c12formula(n, 8) = mz650(mzline(d),7);c12formula(n, 9) = mz650(mzline(d),8);c12formula(n, 10) = mz650(mzline(d),9);
+ c12formula(n, 11) = mz650(mzline(d),10);  c12formula(n, 12) = mz650(mzline(d),11); c12formula(n, 13) = t1{a1,'I'};c12formula(n, 14) = t1{a1,'I_'};...
+     c12formula(n, 15) = t1{a1,'S_N'};
+     end;
+end;
+end;
+ 
+if t1{a1,'m_z'}<=675 & t1{a1,'m_z'}>650;
+       
+      mzline = find(t1{a1,'m_z'}> (mz675(:,1) - Tolerance) & t1{a1,'m_z'} < ( mz675(:,1)+ Tolerance));
+     if mzline>0 
+         c=size(mzline);
+       for  d=1:c(1);
+         n=n+1;      
+ c12formula(n,16)=c(1);
+ 
+ 
+c12formula(n, 1) = t1{a1,'m_z'};
+ c12formula(n, 2) = mz675(mzline(d),1);
+ c12formula(n,3) = mz675(mzline(d),2); c12formula(n, 4) = mz675(mzline(d),3);
+ c12formula(n, 5) = mz675(mzline(d),4); c12formula(n, 6) = mz675(mzline(d),5); c12formula(n, 7) = mz675(mzline(d),6);
+ c12formula(n, 8) = mz675(mzline(d),7);c12formula(n, 9) = mz675(mzline(d),8);c12formula(n, 10) = mz675(mzline(d),9);
+ c12formula(n, 11) = mz675(mzline(d),10);  c12formula(n, 12) = mz675(mzline(d),11); c12formula(n, 13) = t1{a1,'I'};c12formula(n, 14) = t1{a1,'I_'};...
+     c12formula(n, 15) = t1{a1,'S_N'};
+     end;
+     end;
+end;
+ 
+ 
+ 
+if t1{a1,'m_z'}<=700 & t1{a1,'m_z'}>675;
+       
+      mzline = find(t1{a1,'m_z'}> (mz700(:,1) - Tolerance) & t1{a1,'m_z'} < ( mz700(:,1)+ Tolerance));
+     if mzline>0 
+         c=size(mzline);
+       for  d=1:c(1);
+         n=n+1;      
+c12formula(n,16)=c(1);
+ 
+ 
+c12formula(n, 1) = t1{a1,'m_z'};
+ c12formula(n, 2) = mz700(mzline(d),1);
+ c12formula(n,3) = mz700(mzline(d),2); c12formula(n, 4) = mz700(mzline(d),3);
+ c12formula(n, 5) = mz700(mzline(d),4); c12formula(n, 6) = mz700(mzline(d),5); c12formula(n, 7) = mz700(mzline(d),6);
+ c12formula(n, 8) = mz700(mzline(d),7);c12formula(n, 9) = mz700(mzline(d),8);c12formula(n, 10) = mz700(mzline(d),9);
+ c12formula(n, 11) = mz700(mzline(d),10);  c12formula(n, 12) = mz700(mzline(d),11); c12formula(n, 13) = t1{a1,'I'};c12formula(n, 14) = t1{a1,'I_'};...
+     c12formula(n, 15) = t1{a1,'S_N'};
+     end;
+     end;
+end;
+if t1{a1,'m_z'}<=725 & t1{a1,'m_z'}>700;
+       
+      mzline = find(t1{a1,'m_z'}> (mz725(:,1) - Tolerance) & t1{a1,'m_z'} < ( mz725(:,1)+ Tolerance));
+     if mzline>0 
+         c=size(mzline);
+       for  d=1:c(1);
+         n=n+1;      
+ c12formula(n,16)=c(1);
+ 
+ 
+c12formula(n, 1) = t1{a1,'m_z'};
+ c12formula(n, 2) = mz725(mzline(d),1);
+ c12formula(n,3) = mz725(mzline(d),2); c12formula(n, 4) = mz725(mzline(d),3);
+ c12formula(n, 5) = mz725(mzline(d),4); c12formula(n, 6) = mz725(mzline(d),5); c12formula(n, 7) = mz725(mzline(d),6);
+ c12formula(n, 8) = mz725(mzline(d),7);c12formula(n, 9) = mz725(mzline(d),8);c12formula(n, 10) = mz725(mzline(d),9);
+ c12formula(n, 11) = mz725(mzline(d),10);  c12formula(n, 12) = mz725(mzline(d),11); c12formula(n, 13) = t1{a1,'I'};c12formula(n, 14) = t1{a1,'I_'};...
+     c12formula(n, 15) = t1{a1,'S_N'};
+     end;
+     end;
+end;
+ 
+ 
+ 
+if t1{a1,'m_z'}<=750 & t1{a1,'m_z'}>725;
+       
+      mzline = find(t1{a1,'m_z'}> (mz750(:,1) - Tolerance) & t1{a1,'m_z'} < ( mz750(:,1)+ Tolerance));
+     if mzline>0 
+         c=size(mzline);
+       for  d=1:c(1);
+         n=n+1;      
+ c12formula(n,16)=c(1);
+ 
+ 
+c12formula(n, 1) = t1{a1,'m_z'};
+ c12formula(n, 2) = mz750(mzline(d),1);
+ c12formula(n,3) = mz750(mzline(d),2); c12formula(n, 4) = mz750(mzline(d),3);
+ c12formula(n, 5) = mz750(mzline(d),4); c12formula(n, 6) = mz750(mzline(d),5); c12formula(n, 7) = mz750(mzline(d),6);
+ c12formula(n, 8) = mz750(mzline(d),7);c12formula(n, 9) = mz750(mzline(d),8);c12formula(n, 10) = mz750(mzline(d),9);
+ c12formula(n, 11) = mz750(mzline(d),10);  c12formula(n, 12) = mz750(mzline(d),11); c12formula(n, 13) = t1{a1,'I'};c12formula(n, 14) = t1{a1,'I_'};...
+     c12formula(n, 15) = t1{a1,'S_N'};
+     end;
+     end;
+end;
+ 
+if t1{a1,'m_z'}<=775 & t1{a1,'m_z'}>750;
+       
+      mzline = find(t1{a1,'m_z'}> (mz775(:,1) - Tolerance) & t1{a1,'m_z'} < ( mz775(:,1)+ Tolerance));
+     if mzline>0 
+         c=size(mzline);
+       for  d=1:c(1);
+         n=n+1;      
+c12formula(n,16)=c(1);
+ 
+ 
+c12formula(n, 1) = t1{a1,'m_z'};
+ c12formula(n, 2) = mz775(mzline(d),1);
+ c12formula(n,3) = mz775(mzline(d),2); c12formula(n, 4) = mz775(mzline(d),3);
+ c12formula(n, 5) = mz775(mzline(d),4); c12formula(n, 6) = mz775(mzline(d),5); c12formula(n, 7) = mz775(mzline(d),6);
+ c12formula(n, 8) = mz775(mzline(d),7);c12formula(n, 9) = mz775(mzline(d),8);c12formula(n, 10) = mz775(mzline(d),9);
+ c12formula(n, 11) = mz775(mzline(d),10);  c12formula(n, 12) = mz775(mzline(d),11); c12formula(n, 13) = t1{a1,'I'};c12formula(n, 14) = t1{a1,'I_'};...
+     c12formula(n, 15) = t1{a1,'S_N'};
+     end;
+     end;
+end;
+ 
+if t1{a1,'m_z'}<=800 & t1{a1,'m_z'}>775;
+       
+      mzline = find(t1{a1,'m_z'}> (mz800(:,1) - Tolerance) & t1{a1,'m_z'} < ( mz800(:,1)+ Tolerance));
+     if mzline>0 
+         c=size(mzline);
+       for  d=1:c(1);
+         n=n+1;      
+ c12formula(n,16)=c(1);
+ 
+ 
+c12formula(n, 1) = t1{a1,'m_z'};
+ c12formula(n, 2) = mz800(mzline(d),1);
+ c12formula(n,3) = mz800(mzline(d),2); c12formula(n, 4) = mz800(mzline(d),3);
+ c12formula(n, 5) = mz800(mzline(d),4); c12formula(n, 6) = mz800(mzline(d),5); c12formula(n, 7) = mz800(mzline(d),6);
+ c12formula(n, 8) = mz800(mzline(d),7);c12formula(n, 9) = mz800(mzline(d),8);c12formula(n, 10) = mz800(mzline(d),9);
+ c12formula(n, 11) = mz800(mzline(d),10);  c12formula(n, 12) = mz800(mzline(d),11); c12formula(n, 13) = t1{a1,'I'};c12formula(n, 14) = t1{a1,'I_'};...
+     c12formula(n, 15) = t1{a1,'S_N'};
+     end;
+     end;
+end;
+ 
+if t1{a1,'m_z'}<=825 & t1{a1,'m_z'}>800;
+       
+      mzline = find(t1{a1,'m_z'}> (mz825(:,1) - Tolerance) & t1{a1,'m_z'} < ( mz825(:,1)+ Tolerance));
+     if mzline>0 
+         c=size(mzline);
+       for  d=1:c(1);
+         n=n+1;      
+ c12formula(n,16)=c(1);
+ 
+ 
+c12formula(n, 1) = t1{a1,'m_z'};
+ c12formula(n, 2) = mz825(mzline(d),1);
+ c12formula(n,3) = mz825(mzline(d),2); c12formula(n, 4) = mz825(mzline(d),3);
+ c12formula(n, 5) = mz825(mzline(d),4); c12formula(n, 6) = mz825(mzline(d),5); c12formula(n, 7) = mz825(mzline(d),6);
+ c12formula(n, 8) = mz825(mzline(d),7);c12formula(n, 9) = mz825(mzline(d),8);c12formula(n, 10) = mz825(mzline(d),9);
+ c12formula(n, 11) = mz825(mzline(d),10);  c12formula(n, 12) = mz825(mzline(d),11); c12formula(n, 13) = t1{a1,'I'};c12formula(n, 14) = t1{a1,'I_'};...
+     c12formula(n, 15) = t1{a1,'S_N'};
+     end;
+     end;
+end;
+ 
+if t1{a1,'m_z'}<=850 & t1{a1,'m_z'}>825;
+       
+      mzline = find(t1{a1,'m_z'}> (mz850(:,1) - Tolerance) & t1{a1,'m_z'} < ( mz850(:,1)+ Tolerance));
+     if mzline>0 
+         c=size(mzline);
+       for  d=1:c(1);
+         n=n+1;      
+ c12formula(n,16)=c(1);
+ 
+ 
+c12formula(n, 1) = t1{a1,'m_z'};
+ c12formula(n, 2) = mz850(mzline(d),1);
+ c12formula(n,3) = mz850(mzline(d),2); c12formula(n, 4) = mz850(mzline(d),3);
+ c12formula(n, 5) = mz850(mzline(d),4); c12formula(n, 6) = mz850(mzline(d),5); c12formula(n, 7) = mz850(mzline(d),6);
+ c12formula(n, 8) = mz850(mzline(d),7);c12formula(n, 9) = mz850(mzline(d),8);c12formula(n, 10) = mz850(mzline(d),9);
+ c12formula(n, 11) = mz850(mzline(d),10);  c12formula(n, 12) = mz850(mzline(d),11); c12formula(n, 13) = t1{a1,'I'};c12formula(n, 14) = t1{a1,'I_'};...
+     c12formula(n, 15) = t1{a1,'S_N'};
+     end;
+     end;
+end;
+ 
+if t1{a1,'m_z'}<=875 & t1{a1,'m_z'}>850;
+       
+      mzline = find(t1{a1,'m_z'}> (mz875(:,1) - Tolerance) & t1{a1,'m_z'} < ( mz875(:,1)+ Tolerance));
+     if mzline>0 
+         c=size(mzline);
+       for  d=1:c(1);
+         n=n+1;      
+ c12formula(n,16)=c(1);
+ 
+ 
+c12formula(n, 1) = t1{a1,'m_z'};
+ c12formula(n, 2) = mz875(mzline(d),1);
+ c12formula(n,3) = mz875(mzline(d),2); c12formula(n, 4) = mz875(mzline(d),3);
+ c12formula(n, 5) = mz875(mzline(d),4); c12formula(n, 6) = mz875(mzline(d),5); c12formula(n, 7) = mz875(mzline(d),6);
+ c12formula(n, 8) = mz875(mzline(d),7);c12formula(n, 9) = mz875(mzline(d),8);c12formula(n, 10) = mz875(mzline(d),9);
+ c12formula(n, 11) = mz875(mzline(d),10);  c12formula(n, 12) = mz875(mzline(d),11); c12formula(n, 13) = t1{a1,'I'};c12formula(n, 14) = t1{a1,'I_'};...
+     c12formula(n, 15) = t1{a1,'S_N'};
+     end;
+     end;
+end;
+ 
+if t1{a1,'m_z'}<=900 & t1{a1,'m_z'}>875;
+       
+      mzline = find(t1{a1,'m_z'}> (mz900(:,1) - Tolerance) & t1{a1,'m_z'} < ( mz900(:,1)+ Tolerance));
+     if mzline>0 
+         c=size(mzline);
+       for  d=1:c(1);
+         n=n+1;      
+ c12formula(n,16)=c(1);
+ 
+ 
+c12formula(n, 1) = t1{a1,'m_z'};
+ c12formula(n, 2) = mz900(mzline(d),1);
+ c12formula(n,3) = mz900(mzline(d),2); c12formula(n, 4) = mz900(mzline(d),3);
+ c12formula(n, 5) = mz900(mzline(d),4); c12formula(n, 6) = mz900(mzline(d),5); c12formula(n, 7) = mz900(mzline(d),6);
+ c12formula(n, 8) = mz900(mzline(d),7);c12formula(n, 9) = mz900(mzline(d),8);c12formula(n, 10) = mz900(mzline(d),9);
+ c12formula(n, 11) = mz900(mzline(d),10);  c12formula(n, 12) = mz900(mzline(d),11); c12formula(n, 13) = t1{a1,'I'};c12formula(n, 14) = t1{a1,'I_'};...
+     c12formula(n, 15) = t1{a1,'S_N'};
+     end;
+     end;
+end;
+ 
+if t1{a1,'m_z'}<=925 & t1{a1,'m_z'}>900;
+       
+      mzline = find(t1{a1,'m_z'}> (mz925(:,1) - Tolerance) & t1{a1,'m_z'} < ( mz925(:,1)+ Tolerance));
+     if mzline>0 
+         c=size(mzline);
+       for  d=1:c(1);
+         n=n+1;      
+ c12formula(n,16)=c(1);
+ 
+ 
+c12formula(n, 1) = t1{a1,'m_z'};
+ c12formula(n, 2) = mz925(mzline(d),1);
+ c12formula(n,3) = mz925(mzline(d),2); c12formula(n, 4) = mz925(mzline(d),3);
+ c12formula(n, 5) = mz925(mzline(d),4); c12formula(n, 6) = mz925(mzline(d),5); c12formula(n, 7) = mz925(mzline(d),6);
+ c12formula(n, 8) = mz925(mzline(d),7);c12formula(n, 9) = mz925(mzline(d),8);c12formula(n, 10) = mz925(mzline(d),9);
+ c12formula(n, 11) = mz925(mzline(d),10);  c12formula(n, 12) = mz925(mzline(d),11); c12formula(n, 13) = t1{a1,'I'};c12formula(n, 14) = t1{a1,'I_'};...
+     c12formula(n, 15) = t1{a1,'S_N'};
+     end;
+     end;
+end;
+ 
+if t1{a1,'m_z'}<=950 & t1{a1,'m_z'}>925;
+       
+      mzline = find(t1{a1,'m_z'}> (mz950(:,1) - Tolerance) & t1{a1,'m_z'} < ( mz950(:,1)+ Tolerance));
+     if mzline>0 
+         c=size(mzline);
+       for  d=1:c(1);
+         n=n+1;      
+ c12formula(n,16)=c(1);
+ 
+ 
+c12formula(n, 1) = t1{a1,'m_z'};
+ c12formula(n, 2) = mz950(mzline(d),1);
+ c12formula(n,3) = mz950(mzline(d),2); c12formula(n, 4) = mz950(mzline(d),3);
+ c12formula(n, 5) = mz950(mzline(d),4); c12formula(n, 6) = mz950(mzline(d),5); c12formula(n, 7) = mz950(mzline(d),6);
+ c12formula(n, 8) = mz950(mzline(d),7);c12formula(n, 9) = mz950(mzline(d),8);c12formula(n, 10) = mz950(mzline(d),9);
+ c12formula(n, 11) = mz950(mzline(d),10);  c12formula(n, 12) = mz950(mzline(d),11);c12formula(n, 13) = t1{a1,'I'};c12formula(n, 14) = t1{a1,'I_'};...
+     c12formula(n, 15) = t1{a1,'S_N'};
+     end;
+     end;
+end;
+if t1{a1,'m_z'}<=975& t1{a1,'m_z'}>950;
+       
+      mzline = find(t1{a1,'m_z'}> (mz975(:,1) - Tolerance) & t1{a1,'m_z'} < ( mz975(:,1)+ Tolerance));
+     if mzline>0 
+         c=size(mzline);
+       for  d=1:c(1);
+         n=n+1;      
+ c12formula(n,16)=c(1);
+ 
+ 
+c12formula(n, 1) = t1{a1,'m_z'};
+ c12formula(n, 2) = mz975(mzline(d),1);
+ c12formula(n,3) = mz975(mzline(d),2); c12formula(n, 4) = mz975(mzline(d),3);
+ c12formula(n, 5) = mz975(mzline(d),4); c12formula(n, 6) = mz975(mzline(d),5); c12formula(n, 7) = mz975(mzline(d),6);
+ c12formula(n, 8) = mz975(mzline(d),7);c12formula(n, 9) = mz975(mzline(d),8);c12formula(n, 10) = mz975(mzline(d),9);
+ c12formula(n, 11) = mz975(mzline(d),10);  c12formula(n, 12) = mz975(mzline(d),11); c12formula(n, 13) = t1{a1,'I'};c12formula(n, 14) = t1{a1,'I_'};...
+     c12formula(n, 15) = t1{a1,'S_N'};
+     end;
+     end;
+end;
+ 
+if t1{a1,'m_z'}<=1000& t1{a1,'m_z'}>975;
+       
+      mzline = find(t1{a1,'m_z'}> (mz1000(:,1) - Tolerance) & t1{a1,'m_z'} < ( mz1000(:,1)+ Tolerance));
+     if mzline>0 
+         c=size(mzline);
+       for  d=1:c(1);
+         n=n+1;      
+ c12formula(n,16)=c(1);
+ 
+ 
+c12formula(n, 1) = t1{a1,'m_z'};
+ c12formula(n, 2) = mz1000(mzline(d),1);
+ c12formula(n,3) = mz1000(mzline(d),2); c12formula(n, 4) = mz1000(mzline(d),3);
+ c12formula(n, 5) = mz1000(mzline(d),4); c12formula(n, 6) = mz1000(mzline(d),5); c12formula(n, 7) = mz1000(mzline(d),6);
+ c12formula(n, 8) = mz1000(mzline(d),7);c12formula(n, 9) = mz1000(mzline(d),8);c12formula(n, 10) = mz1000(mzline(d),9);
+ c12formula(n, 11) = mz1000(mzline(d),10);  c12formula(n, 12) = mz1000(mzline(d),11); c12formula(n, 13) = t1{a1,'I'};c12formula(n, 14) = t1{a1,'I_'};...
+     c12formula(n, 15) = t1{a1,'S_N'};
+     end;
+     end;
+end;
+ 
+end;
+ 
+c12formula_first{bb}=c12formula(find(c12formula(:,1)~=0),:);
+c12formula_first{bb}(:,4:17)=c12formula_first{bb}(:,3:16);
+c12formula_first{bb}(:,3)=(c12formula_first{bb}(:,1)-c12formula_first{bb}(:,2)).*1e6./c12formula_first{bb}(:,2);
+ 
+ 
+end
+waitbar(2/5,bar);
+ 
+for cc=1:aas(2);
+        nx_c12formula_first{cc}=c12formula_first{cc}(c12formula_first{cc}(:,10)==0,:);
+        
+        formula_uni=nx_c12formula_first{cc}(nx_c12formula_first{cc}(:,17)==1,:);
+        formula_uni(:,18)=formula_uni(:,7)+formula_uni(:,8)+formula_uni(:,9);%sum  nsp
+        formula_uni(:,19)=formula_uni(:,8)+formula_uni(:,9);
+        formula_multi=nx_c12formula_first{cc}(nx_c12formula_first{cc}(:,17)>1,:);
+        formula_multi(:,18)=formula_multi(:,7)+formula_multi(:,8)+formula_multi(:,9);%sum  nsp
+        formula_multi(:,19)=formula_multi(:,8)+formula_multi(:,9);
+     
+         Massfrequqnce=tabulate(nx_c12formula_first{cc}(:,1)); 
+    Massmul=Massfrequqnce(Massfrequqnce(:,2)>1,:);
+ 
+        dd=size( Massmul(:,1));
+        for i=1:dd(1);
+              Massmul1= formula_multi(formula_multi(:,1)==Massmul(i,1),:); 
+        ID1= find( Massmul1(:,18)==min( Massmul1(:,18))); 
+               if size(ID1,1)==1
+                   minnsp_Results(i,1:19)=  Massmul1(ID1,1:19);
+                   
+               else   Massmul2= Massmul1(ID1,1:19);
+                  
+                   ID2= find(Massmul2(:,19)==min(Massmul2(:,19))); 
+                  if size(ID2,1)==1
+                      minnsp_Results(i,1:19)=  Massmul2(ID2,1:19);
+                       else   Massmul3= Massmul2(ID2,1:19);
+                       
+                       ID3= find(Massmul3(:,3)==min(abs(Massmul3(:,3)))|Massmul3(:,3)==-min(abs(Massmul3(:,3)))); 
+                       minnsp_Results(i,1:19)=  Massmul3(ID3,1:19); 
+                      
+                   end
+               end   
+        end
+        minnsp_Results2{cc}= sortrows([formula_uni;minnsp_Results],1);
+        xx=size(minnsp_Results2{cc}(:,2)); 
+        ii=1;
+        while ii<xx(1);
+           
+            if minnsp_Results2{cc}(ii,2)==minnsp_Results2{cc}(ii+1,2)&abs( minnsp_Results2{cc}(ii,3))>=abs( minnsp_Results2{cc}(ii+1,3));
+           
+               minnsp_Results2{cc}(ii,:)= minnsp_Results2{cc}(ii+1,:);
+     minnsp_Results2{cc}(ii+1,:)=[];
+     ii=ii+1;
+            else if  minnsp_Results2{cc}(ii,2)==minnsp_Results2{cc}(ii+1,2)&abs( minnsp_Results2{cc}(ii,3))<abs( minnsp_Results2{cc}(ii+1,3));
+                minnsp_Results2{cc}(ii,:)= minnsp_Results2{cc}(ii,:);
+     minnsp_Results2{cc}(ii+1,:)=[];
+             ii=ii+1;
+ 
+            else if minnsp_Results2{cc}(ii,2)~=minnsp_Results2{cc}(ii+1,2);
+                  minnsp_Results2{cc}(ii,:)= minnsp_Results2{cc}(ii,:); 
+                  minnsp_Results2{cc}(ii+1,:)= minnsp_Results2{cc}(ii+1,:); 
+                ii=ii+1;  
+           end;
+            end;
+        end;
+         xx=size(minnsp_Results2{cc}(:,2)); 
+    end
+   minnsp_Results2{cc}=minnsp_Results2{cc}(minnsp_Results2{cc}(:,10)==0,:);
+        
+ 
+    end;
+    assingend1=minnsp_Results2;
+    for ii=1:aas(2);
+     c12_c12formula_first{ii}=minnsp_Results2{ii}(minnsp_Results2{ii}(:,10)==0,:);
+     c12x_c12formula_first{ii}=c12_c12formula_first{ii}(c12_c12formula_first{ii}(:,11)~=0 |...
+         c12_c12formula_first{ii}(:,12)~=0 |c12_c12formula_first{ii}(:,13)~=0,:);
+    
+      
+      uniquec12xm{ii}=unique(c12x_c12formula_first{ii}(:,1));
+ end;
+  
+ temp1= c12_c12formula_first;
+ temp2=uniquec12xm;
+ 
+   for cc=1:aas(2);
+    c=size(uniquec12xm{cc}(:,1));
+       for d=1:c(1);
+          id=find(temp1{cc}(:,1)==temp2{cc}(d,1));
+          if id>0;
+              temp1{cc}(id,:)=[];
+          end;
+       end;
+             [ aaa,assigned ]= setdiff(c12_c12formula_first{cc}(:,2),temp1{cc}(:,2)); 
+    c12xom_c12formula_first{cc}=c12_c12formula_first{cc}(assigned,:);%¶¼º¬»ò²¿·Öº¬Â±ËØ·Ö×ÓÊ½
+    
+     [ aaax,assignedx ]= setdiff(c12_c12formula_first{cc}(:,2),c12xom_c12formula_first{cc}(:,2)); 
+    c12nox_c12formula_first{cc}=c12_c12formula_first{cc}(assignedx,:);%²»º¬Â±ËØ·Ö×ÓÊ½
+    
+   end;
+   
+   temp3= c12xom_c12formula_first;
+   temp4=filem;
+   temp6= c12xom_c12formula_first;
+   
+   n=0;
+     for cc=1:aas(2);
+            temp5{cc}=zeros(1000000,19); 
+    c=size(c12xom_c12formula_first{cc}(:,1));
+       for d=1:c(1);
+           
+     if temp3{cc}(d,11)>0&temp3{cc}(d,12)==0;
+         
+          id=find(temp4{cc}.m_z>=(temp3{cc}(d,1)+1.99655)&temp4{cc}.m_z<=(temp3{cc}(d,1)+1.99755)...
+              & temp4{cc}.I>=(temp3{cc}(d,11)*0.3199*temp3{cc}(d,14)*0.7) & temp4{cc}.I<=(temp3{cc}(d,11)*0.3199*temp3{cc}(d,14)*1.3)...
+              );
+          
+              
+          if isempty(id)==0;
+              n=n+1;
+              temp5{cc}(n,:)=temp3{cc}(d,:); 
+              
+                idc=find(minnsp_Results2{cc}(:,1)>=(temp3{cc}(d,1)+1.99655)&minnsp_Results2{cc}(:,1)<=(temp3{cc}(d,1)+1.99755));
+                  
+                if isempty(idc)==0;
+              minnsp_Results2{cc}(idc,:)=0;
+                end;
+                  idc=find(minnsp_Results2{cc}(:,1)>=(temp3{cc}(d,1)+1.002355)&minnsp_Results2{cc}(:,1)<=(temp3{cc}(d,1)+1.004355));
+                  
+                if isempty(idc)==0;
+              minnsp_Results2{cc}(idc,:)=0;
+                end;
+          else
+              temp6{cc}(d,:)=0;
+          end;
+          
+ 
+     end;
+     
+        if temp3{cc}(d,11)>0&temp3{cc}(d,12)>0;
+         
+         id=find(temp4{cc}.m_z>=(temp3{cc}(d,1)+1.996953)&temp4{cc}.m_z<=(temp3{cc}(d,1)+1.998953)...
+              & temp4{cc}.I>=((temp3{cc}(d,11)*0.3199+temp3{cc}(d,12)*0.97278)*temp3{cc}(d,14)*0.7)...
+              & temp4{cc}.I<=((temp3{cc}(d,11)*0.3199+temp3{cc}(d,12)*0.97278)*temp3{cc}(d,14)*1.3));
+          
+              
+          if isempty(id)==0;
+              n=n+1;
+              temp5{cc}(n,:)=temp3{cc}(d,:); 
+              
+                idc=find(minnsp_Results2{cc}(:,1)>=(temp3{cc}(d,1)+1.996953)&minnsp_Results2{cc}(:,1)<=(temp3{cc}(d,1)+1.998953));
+                  
+                if isempty(idc)==0;
+              minnsp_Results2{cc}(idc,:)=0;
+                end;
+                  idc=find(minnsp_Results2{cc}(:,1)>=(temp3{cc}(d,1)+1.002355)&minnsp_Results2{cc}(:,1)<=(temp3{cc}(d,1)+1.004355));
+                  
+                if isempty(idc)==0;
+              minnsp_Results2{cc}(idc,:)=0;
+                end;
+          else
+              temp6{cc}(d,:)=0;
+          end;
+          
+ 
+     end;
+     
+          if temp3{cc}(d,11)==0&temp3{cc}(d,12)>0;
+         
+       id=find(temp4{cc}.m_z>=(temp3{cc}(d,1)+1.996953)&temp4{cc}.m_z<=(temp3{cc}(d,1)+1.998953)...
+              & temp4{cc}.I>=((temp3{cc}(d,12)*0.97278)*temp3{cc}(d,14)*0.7)...
+              & temp4{cc}.I<=((temp3{cc}(d,12)*0.97278)*temp3{cc}(d,14)*1.3));
+          
+              
+          if isempty(id)==0;
+              n=n+1;
+              temp5{cc}(n,:)=temp3{cc}(d,:); 
+              
+                idc=find(minnsp_Results2{cc}(:,1)>=(temp3{cc}(d,1)+1.996953)&minnsp_Results2{cc}(:,1)<=(temp3{cc}(d,1)+1.998953));
+                  
+                if isempty(idc)==0;
+              minnsp_Results2{cc}(idc,:)=0;
+                end;
+                  idc=find(minnsp_Results2{cc}(:,1)>=(temp3{cc}(d,1)+1.002355)&minnsp_Results2{cc}(:,1)<=(temp3{cc}(d,1)+1.004355));
+                  
+                if isempty(idc)==0;
+              minnsp_Results2{cc}(idc,:)=0;
+                end;
+          else
+              temp6{cc}(d,:)=0;
+          end;
+          
+ 
+     end;
+     
+     
+       end;
+      temp5{cc} =temp5{cc}(temp5{cc}(:,1)~=0,:);
+      temp5_final{cc}=  temp5{cc}(temp5{cc}(:,1)~=0,:);
+     
+         minnsp_Results2{cc}=minnsp_Results2{cc}(minnsp_Results2{cc}(:,1)~=0,:);
+         
+         dd=size( temp5_final{cc}(:,1));
+          for d=1:dd(1);
+                if temp5_final{cc}(d,7)~=0 || temp5_final{cc}(d,8)~=0 || temp5_final{cc}(d,9)~=0;
+     
+          
+               id1=find(temp4{cc}.m_z>=(temp5_final{cc}(d,1)+1.001355)&temp4{cc}.m_z<=(temp5_final{cc}(d,1)+1.005355)...
+              & temp4{cc}.I>=(temp5_final{cc}(d,4)*0.01082*temp5_final{cc}(d,14)*0.7) & temp4{cc}.I<=(temp5_final{cc}(d,4)*0.01082*temp5_final{cc}(d,14)*1.3)...
+              );
+              
+          if  isempty(id1)~=0;
+                    temp5_final{cc}(d,:)=0;
+          end;
+                end;
+          end;
+            temp5_final{cc}=  temp5_final{cc}( temp5_final{cc}(:,1)~=0,:);
+ 
+    end;
+      nxtemp3= minnsp_Results2;
+   nxtemp4=filem;
+   nxtemp6= minnsp_Results2;
+    n=0;
+     for cc=1:aas(2);
+         
+    nxtemp3{cc}= nxtemp3{cc}( nxtemp3{cc}(:,11)==0,:);
+     nxtemp3{cc}= nxtemp3{cc}( nxtemp3{cc}(:,12)==0,:);
+      nxtemp3{cc}= nxtemp3{cc}( nxtemp3{cc}(:,13)==0,:);
+      
+          
+             nxtemp6{cc}=nxtemp3{cc};
+             
+            nxtemp5{cc}=zeros(1000000,19); 
+            
+    c=size( nxtemp3{cc}(:,1));
+       for d=1:c(1);
+   
+               id1=find(nxtemp4{cc}.m_z>=(nxtemp3{cc}(d,1)+1.002855)&nxtemp4{cc}.m_z<=(nxtemp3{cc}(d,1)+1.003855)...
+              & nxtemp4{cc}.I>=(nxtemp3{cc}(d,4)*0.01082*nxtemp3{cc}(d,14)*0.85) & nxtemp4{cc}.I<=(nxtemp3{cc}(d,4)*0.01082*nxtemp3{cc}(d,14)*1.15)...
+              );
+              
+          if  isempty(id1)==0&nxtemp3{cc}(d,18)<=2&nxtemp3{cc}(d,9)~=1;
+              n=n+1;
+              nxtemp5{cc}(n,:)=nxtemp3{cc}(d,:);   
+              
+                idc=find(minnsp_Results2{cc}(:,1)>=(nxtemp3{cc}(d,1)+1.002355)&minnsp_Results2{cc}(:,1)<=(nxtemp3{cc}(d,1)+1.004355));
+                  
+                if isempty(idc)==0;
+              minnsp_Results2{cc}(idc,:)=0;
+                end;
+                
+          else if  isempty(id1)==0&nxtemp3{cc}(d,18)<=2&nxtemp3{cc}(d,9)==1;
+                  
+                  idd=find(nxtemp4{cc}.m_z>=(nxtemp3{cc}(d,1)+1.99655)&nxtemp4{cc}.m_z<=(nxtemp3{cc}(d,1)+1.99755));
+          
+              
+          if isempty(idd)~=0;
+              n=n+1;
+              nxtemp5{cc}(n,:)=nxtemp3{cc}(d,:);   
+              
+                idc=find(minnsp_Results2{cc}(:,1)>=(nxtemp3{cc}(d,1)+1.002355)&minnsp_Results2{cc}(:,1)<=(nxtemp3{cc}(d,1)+1.004355));
+                  
+                if isempty(idc)==0;
+              minnsp_Results2{cc}(idc,:)=0;
+                end;  
+          end;
+              end;
+                
+       if isempty(id1)==0&nxtemp3{cc}(d,18)>2;
+                  
+                     id2=find(nxtemp4{cc}.m_z>=(nxtemp3{cc}(d,1)+1.994796)&nxtemp4{cc}.m_z<=(nxtemp3{cc}(d,1)+1.996796)...
+              & nxtemp4{cc}.I>=(nxtemp3{cc}(d,8)*0.0474*nxtemp3{cc}(d,14)*0.85) & nxtemp4{cc}.I<=(nxtemp3{cc}(d,8)*0.0474*nxtemp3{cc}(d,14)*1.15)...
+              );
+             id3=find(nxtemp4{cc}.m_z>=(nxtemp3{cc}(d,1)+0.996535)&nxtemp4{cc}.m_z<=(nxtemp3{cc}(d,1)+0.997535)...
+              & nxtemp4{cc}.I>=(nxtemp3{cc}(d,7)*0.0365*nxtemp3{cc}(d,14)*0.85) & nxtemp4{cc}.I<=(nxtemp3{cc}(d,7)*0.0365*nxtemp3{cc}(d,14)*1.15)...
+              );
+            if  isempty(id2)==0 || isempty(id3)==0;
+              n=n+1;
+              nxtemp5{cc}(n,:)=nxtemp3{cc}(d,:);   
+              
+                idc=find(minnsp_Results2{cc}(:,1)>=(nxtemp3{cc}(d,1)+1.002355)&minnsp_Results2{cc}(:,1)<=(nxtemp3{cc}(d,1)+1.004355));
+                  
+                if isempty(idc)==0;
+              minnsp_Results2{cc}(idc,:)=0;
+                end;
+                
+          else
+              nxtemp6{cc}(d,:)=0;
+          end;
+              end;
+          end;
+       end;
+       
+      
+ 
+        nxtemp6{cc}= nxtemp6{cc}( nxtemp6{cc}(:,1)~=0,:);
+        nxtemp5{cc}= nxtemp5{cc}( nxtemp5{cc}(:,1)~=0,:);
+         minnsp_Results2{cc}=minnsp_Results2{cc}(minnsp_Results2{cc}(:,1)~=0,:);
+  c13conformc121{cc}=nxtemp5{cc}(:,1:17);
+    z3{cc}=mean(abs(c13conformc121{cc}(:,3)));%C13È·ÈÏÐ¡ÓÚ·Ö×ÓÁ¿500µÄÎ¨Ò»·Ö×ÓÊ½µÄ×î´óÎó²îÖµ
+    c13conformc121{cc}= c13conformc121{cc}(abs(c13conformc121{cc}(:,3))<= 2*z3{cc},:);%C13È·ÈÏ-·Ö×ÓÊ½Îó²îÐ¡ÓÚ2±¶Æ½¾ùÎó²î
+    c13conformc121{cc}= c13conformc121{cc}(c13conformc121{cc}(:,16)>= 10,:);%C13È·ÈÏ-ÐÅÔë±È´óÓÚ10
+    c13conformc121{cc}= c13conformc121{cc}(c13conformc121{cc}(:,1)<= 500,:);%C13È·ÈÏ-·Ö×ÓÁ¿Ð¡ÓÚ500£¬ÓÃÓÚÍ¬Ô´ÏµÁÐÆ¥Åä
+ c13conformc121{cc}=sortrows( c13conformc121{cc},1);
+ 
+ 
+    end;
+waitbar(3/5,bar);
+ 
+    temp1=minnsp_Results2;
+ temp2=c13conformc121;
+   for cc=1:aas(2);
+  
+     a3=c13conformc121{cc};
+     a4(1)=1;
+     while a4(1)~=0;
+         a4=size(c13conformc121{cc});
+     c=size(c13conformc121{cc}(:,2));
+   dd=size(temp1{cc}(:,2));
+    for x=-8:8;%ch4-o
+        
+       for d=1:c(1);
+          id=find(temp1{cc}(:,4)==(c13conformc121{cc}(d,4)+x)& temp1{cc}(:,5)==(c13conformc121{cc}(d,5)+4*x)& temp1{cc}(:,6)==(c13conformc121{cc}(d,6)-x)...
+              & temp1{cc}(:,7)==c13conformc121{cc}(d,7) & temp1{cc}(:,8)==c13conformc121{cc}(d,8)& temp1{cc}(:,9)==c13conformc121{cc}(d,9)& temp1{cc}(:,11)==c13conformc121{cc}(d,11)...
+              & temp1{cc}(:,12)==c13conformc121{cc}(d,12)& temp1{cc}(:,13)==c13conformc121{cc}(d,13));
+          if id>0;
+              temp1{cc}(id,:)=[];end;
+          
+                  id1=find(temp1{cc}(:,4)==(c13conformc121{cc}(d,4))& temp1{cc}(:,5)==(c13conformc121{cc}(d,5)+2*x)& temp1{cc}(:,6)==(c13conformc121{cc}(d,6))...
+              & temp1{cc}(:,7)==c13conformc121{cc}(d,7) & temp1{cc}(:,8)==c13conformc121{cc}(d,8)& temp1{cc}(:,9)==c13conformc121{cc}(d,9)& temp1{cc}(:,11)==c13conformc121{cc}(d,11)...
+              & temp1{cc}(:,12)==c13conformc121{cc}(d,12)& temp1{cc}(:,13)==c13conformc121{cc}(d,13));%h2
+           if id1>0;
+              temp1{cc}(id1,:)=[]; 
+               end;
+          
+           id2=find(temp1{cc}(:,4)==(c13conformc121{cc}(d,4)+x)& temp1{cc}(:,5)==(c13conformc121{cc}(d,5)+2*x)& temp1{cc}(:,6)==(c13conformc121{cc}(d,6))...
+              & temp1{cc}(:,7)==c13conformc121{cc}(d,7) & temp1{cc}(:,8)==c13conformc121{cc}(d,8)& temp1{cc}(:,9)==c13conformc121{cc}(d,9)& temp1{cc}(:,11)==c13conformc121{cc}(d,11)...
+              & temp1{cc}(:,12)==c13conformc121{cc}(d,12)& temp1{cc}(:,13)==c13conformc121{cc}(d,13));%ch2
+           if id2>0;
+              temp1{cc}(id2,:)=[];
+            end;
+           id3=find(temp1{cc}(:,4)==(c13conformc121{cc}(d,4)+x)& temp1{cc}(:,5)==(c13conformc121{cc}(d,5))& temp1{cc}(:,6)==(c13conformc121{cc}(d,6)+2*x)...
+              & temp1{cc}(:,7)==c13conformc121{cc}(d,7) & temp1{cc}(:,8)==c13conformc121{cc}(d,8)& temp1{cc}(:,9)==c13conformc121{cc}(d,9)& temp1{cc}(:,11)==c13conformc121{cc}(d,11)...
+              & temp1{cc}(:,12)==c13conformc121{cc}(d,12)& temp1{cc}(:,13)==c13conformc121{cc}(d,13));%co2
+           if id3>0;
+              temp1{cc}(id3,:)=[];
+               end;
+          
+           id4=find(temp1{cc}(:,4)==(c13conformc121{cc}(d,4))& temp1{cc}(:,5)==(c13conformc121{cc}(d,5)+2*x)& temp1{cc}(:,6)==(c13conformc121{cc}(d,6)+x)...
+              & temp1{cc}(:,7)==c13conformc121{cc}(d,7) & temp1{cc}(:,8)==c13conformc121{cc}(d,8)& temp1{cc}(:,9)==c13conformc121{cc}(d,9)& temp1{cc}(:,11)==c13conformc121{cc}(d,11)...
+              & temp1{cc}(:,12)==c13conformc121{cc}(d,12)& temp1{cc}(:,13)==c13conformc121{cc}(d,13));%h2o
+           if id4>0;
+              temp1{cc}(id4,:)=[];
+               end;
+          id5=find(temp1{cc}(:,4)==(c13conformc121{cc}(d,4))& temp1{cc}(:,5)==(c13conformc121{cc}(d,5))& temp1{cc}(:,6)==(c13conformc121{cc}(d,6)+x)...
+              & temp1{cc}(:,7)==c13conformc121{cc}(d,7) & temp1{cc}(:,8)==c13conformc121{cc}(d,8)& temp1{cc}(:,9)==c13conformc121{cc}(d,9)& temp1{cc}(:,11)==c13conformc121{cc}(d,11)...
+              & temp1{cc}(:,12)==c13conformc121{cc}(d,12)& temp1{cc}(:,13)==c13conformc121{cc}(d,13));%+o
+           if id5>0;
+              temp1{cc}(id5,:)=[];
+               end;
+            id6=find(temp1{cc}(:,4)==(c13conformc121{cc}(d,4)+4*x)& temp1{cc}(:,5)==(c13conformc121{cc}(d,5))& temp1{cc}(:,6)==(c13conformc121{cc}(d,6)-3*x)...
+              & temp1{cc}(:,7)==c13conformc121{cc}(d,7) & temp1{cc}(:,8)==c13conformc121{cc}(d,8)& temp1{cc}(:,9)==c13conformc121{cc}(d,9)& temp1{cc}(:,11)==c13conformc121{cc}(d,11)...
+              & temp1{cc}(:,12)==c13conformc121{cc}(d,12)& temp1{cc}(:,13)==c13conformc121{cc}(d,13));%+c4-o3
+             if id6>0;
+              temp1{cc}(id6,:)=[];
+               end;
+          
+          id7=find(temp1{cc}(:,4)==(c13conformc121{cc}(d,4)+3*x)& temp1{cc}(:,5)==(c13conformc121{cc}(d,5)-4*x)& temp1{cc}(:,6)==(c13conformc121{cc}(d,6)-2*x)...
+              & temp1{cc}(:,7)==c13conformc121{cc}(d,7) & temp1{cc}(:,8)==c13conformc121{cc}(d,8)& temp1{cc}(:,9)==c13conformc121{cc}(d,9)& temp1{cc}(:,11)==c13conformc121{cc}(d,11)...
+              & temp1{cc}(:,12)==c13conformc121{cc}(d,12)& temp1{cc}(:,13)==c13conformc121{cc}(d,13));%+c3-h4o2
+         
+           
+              if id7>0;
+              temp1{cc}(id7,:)=[];
+              
+           end;
+           
+       
+       end;    
+        
+    end;
+   
+    
+     [ aaa,assigned ]= setdiff( minnsp_Results2{cc}(:,2),temp1{cc}(:,2)); 
+    assingend1{cc}= minnsp_Results2{cc}(assigned,:);
+     [ aaa2,assigned2 ]= setdiff(assingend1{cc}(:,1),a3(:,1)); 
+  c13conformc121{cc}=assingend1{cc}(assigned2,:);
+    a3=assingend1{cc};
+   
+     end; 
+    assingend1e{cc} =assingend1{cc};
+   assingend1ee{cc} =assingend1{cc};
+ 
+   end;
+waitbar(4/5,bar);
+ 
+ temp3= temp1;%NSPÍ¬Ô´ÏµÁÐÆ¥Åä
+ 
+   for cc=1:aas(2);
+  
+    
+     
+     c=size(assingend1{cc}(:,2));
+   dd=size(temp3{cc}(:,2));
+    for x=1:2;
+        
+       for d=1:c(1);
+          id=find(temp3{cc}(:,4)==assingend1{cc}(d,4)& temp3{cc}(:,5)==(assingend1{cc}(d,5)+x*2)& temp3{cc}(:,6)==assingend1{cc}(d,6)-x...
+              & temp3{cc}(:,7)==(assingend1{cc}(d,7)+x)& temp3{cc}(:,8)==assingend1{cc}(d,8)& temp3{cc}(:,9)==assingend1{cc}(d,9)...
+              & temp3{cc}(:,11)==assingend1{cc}(d,11) & temp3{cc}(:,12)==assingend1{cc}(d,12) & temp3{cc}(:,13)==assingend1{cc}(d,13));%+NH2-O
+          if id>0;
+              temp3{cc}(id,:)=[];
+          end;
+          
+                 
+           end;
+           for d=1:c(1);
+          id1=find(temp3{cc}(:,4)==assingend1{cc}(d,4)-x& temp3{cc}(:,5)==(assingend1{cc}(d,5)-x)& temp3{cc}(:,6)==(assingend1{cc}(d,6))...
+              & temp3{cc}(:,7)==(assingend1{cc}(d,7)+x)& temp3{cc}(:,8)==(assingend1{cc}(d,8))& temp3{cc}(:,9)==assingend1{cc}(d,9)...
+              & temp3{cc}(:,11)==assingend1{cc}(d,11) & temp3{cc}(:,12)==assingend1{cc}(d,12) & temp3{cc}(:,13)==assingend1{cc}(d,13));%+NH-CH2
+          if id1>0;
+              temp3{cc}(id1,:)=[];
+          end;
+          
+                 
+           end;
+       
+             for d=1:c(1);
+          id2=find(temp3{cc}(:,4)==assingend1{cc}(d,4)& temp3{cc}(:,5)==(assingend1{cc}(d,5)+x)& temp3{cc}(:,6)==(assingend1{cc}(d,6)-x*2)...
+              & temp3{cc}(:,7)==(assingend1{cc}(d,7))& temp3{cc}(:,8)==(assingend1{cc}(d,8))& temp3{cc}(:,9)==(assingend1{cc}(d,9)+x)...
+              & temp3{cc}(:,11)==assingend1{cc}(d,11) & temp3{cc}(:,12)==assingend1{cc}(d,12) & temp3{cc}(:,13)==assingend1{cc}(d,13));%+HP-O2
+          if id2>0;
+              temp3{cc}(id2,:)=[];
+          end;
+          
+                 
+           end;
+           
+             for d=1:c(1);
+          id3=find(temp3{cc}(:,4)==assingend1{cc}(d,4)& temp3{cc}(:,5)==(assingend1{cc}(d,5))& temp3{cc}(:,6)==(assingend1{cc}(d,6)-x*2)...
+              & temp3{cc}(:,7)==(assingend1{cc}(d,7))& temp3{cc}(:,8)==(assingend1{cc}(d,8)+x)& temp3{cc}(:,9)==(assingend1{cc}(d,9))...
+              & temp3{cc}(:,11)==assingend1{cc}(d,11) & temp3{cc}(:,12)==assingend1{cc}(d,12) & temp3{cc}(:,13)==assingend1{cc}(d,13));%-O2+S
+          if id3>0;
+              temp3{cc}(id3,:)=[];
+          end;
+          
+                 
+           end;
+       end;    
+    
+     [ aaa,assigned ]= setdiff(temp1{cc}(:,1),temp3{cc}(:,1)); 
+    assingend11{cc}=temp1{cc}(assigned,:);
+    assingend11s{cc}=assingend11{cc};
+   end;
+      atemp1=temp1;
+ 
+   for cc=1:aas(2);%NSPÍ¬Ô´ÏµÁÐÆ¥ÅäºóÔÙ´ÎchoÍ¬Ô´Æ¥Åä
+  
+     a3=assingend11{cc};
+     a4(1)=1;
+     while a4(1)~=0;
+         a4=size(assingend11{cc});
+     c=size(assingend11{cc}(:,2));
+   dd=size(temp1{cc}(:,2));
+    for x=-8:8;%ch4-o
+        
+       for d=1:c(1);
+     id=find(atemp1{cc}(:,4)==(assingend11{cc}(d,4)+x)& atemp1{cc}(:,5)==(assingend11{cc}(d,5)+4*x)& atemp1{cc}(:,6)==(assingend11{cc}(d,6)-x)...
+              & atemp1{cc}(:,7)==assingend11{cc}(d,7) & atemp1{cc}(:,8)==assingend11{cc}(d,8)& atemp1{cc}(:,9)==assingend11{cc}(d,9)...
+              & atemp1{cc}(:,11)==assingend11{cc}(d,11)& atemp1{cc}(:,12)==assingend11{cc}(d,12)& atemp1{cc}(:,13)==assingend11{cc}(d,13));
+          if id>0;
+              atemp1{cc}(id,:)=[];end;
+          
+                  id1=find(atemp1{cc}(:,4)==(assingend11{cc}(d,4))& atemp1{cc}(:,5)==(assingend11{cc}(d,5)+2*x)& atemp1{cc}(:,6)==(assingend11{cc}(d,6))...
+              & atemp1{cc}(:,7)==assingend11{cc}(d,7) & atemp1{cc}(:,8)==assingend11{cc}(d,8)& atemp1{cc}(:,9)==assingend11{cc}(d,9)...
+              & atemp1{cc}(:,11)==assingend11{cc}(d,11)& atemp1{cc}(:,12)==assingend11{cc}(d,12)& atemp1{cc}(:,13)==assingend11{cc}(d,13));%h2
+           if id1>0;
+              atemp1{cc}(id1,:)=[]; 
+               end;
+          
+           id2=find(atemp1{cc}(:,4)==(assingend11{cc}(d,4)+x)& atemp1{cc}(:,5)==(assingend11{cc}(d,5)+2*x)& atemp1{cc}(:,6)==(assingend11{cc}(d,6))...
+              & atemp1{cc}(:,7)==assingend11{cc}(d,7) & atemp1{cc}(:,8)==assingend11{cc}(d,8)& atemp1{cc}(:,9)==assingend11{cc}(d,9)...
+              & atemp1{cc}(:,11)==assingend11{cc}(d,11)& atemp1{cc}(:,12)==assingend11{cc}(d,12)& atemp1{cc}(:,13)==assingend11{cc}(d,13));%ch2
+           if id2>0;
+              atemp1{cc}(id2,:)=[];
+            end;
+           id3=find(atemp1{cc}(:,4)==(assingend11{cc}(d,4)+x)& atemp1{cc}(:,5)==(assingend11{cc}(d,5))& atemp1{cc}(:,6)==(assingend11{cc}(d,6)+2*x)...
+              & atemp1{cc}(:,7)==assingend11{cc}(d,7) & atemp1{cc}(:,8)==assingend11{cc}(d,8)& atemp1{cc}(:,9)==assingend11{cc}(d,9)...
+              & atemp1{cc}(:,11)==assingend11{cc}(d,11)& atemp1{cc}(:,12)==assingend11{cc}(d,12)& atemp1{cc}(:,13)==assingend11{cc}(d,13));%co2
+           if id3>0;
+              atemp1{cc}(id3,:)=[];
+               end;
+          
+           id4=find(atemp1{cc}(:,4)==(assingend11{cc}(d,4))& atemp1{cc}(:,5)==(assingend11{cc}(d,5)+2*x)& atemp1{cc}(:,6)==(assingend11{cc}(d,6)+x)...
+              & atemp1{cc}(:,7)==assingend11{cc}(d,7) & atemp1{cc}(:,8)==assingend11{cc}(d,8)& atemp1{cc}(:,9)==assingend11{cc}(d,9)...
+              & atemp1{cc}(:,11)==assingend11{cc}(d,11)& atemp1{cc}(:,12)==assingend11{cc}(d,12)& atemp1{cc}(:,13)==assingend11{cc}(d,13));%h2o
+           if id4>0;
+              atemp1{cc}(id4,:)=[];
+               end;
+          id5=find(atemp1{cc}(:,4)==(assingend11{cc}(d,4))& atemp1{cc}(:,5)==(assingend11{cc}(d,5))& atemp1{cc}(:,6)==(assingend11{cc}(d,6)+x)...
+              & atemp1{cc}(:,7)==assingend11{cc}(d,7) & atemp1{cc}(:,8)==assingend11{cc}(d,8)& atemp1{cc}(:,9)==assingend11{cc}(d,9)...
+              & atemp1{cc}(:,11)==assingend11{cc}(d,11)& atemp1{cc}(:,12)==assingend11{cc}(d,12)& atemp1{cc}(:,13)==assingend11{cc}(d,13));%+o
+           if id5>0;
+              atemp1{cc}(id5,:)=[];
+               end;
+            id6=find(atemp1{cc}(:,4)==(assingend11{cc}(d,4)+4*x)& atemp1{cc}(:,5)==(assingend11{cc}(d,5))& atemp1{cc}(:,6)==(assingend11{cc}(d,6)-3*x)...
+              & atemp1{cc}(:,7)==assingend11{cc}(d,7) & atemp1{cc}(:,8)==assingend11{cc}(d,8)& atemp1{cc}(:,9)==assingend11{cc}(d,9)...
+              & atemp1{cc}(:,11)==assingend11{cc}(d,11)& atemp1{cc}(:,12)==assingend11{cc}(d,12)& atemp1{cc}(:,13)==assingend11{cc}(d,13));%+c4-o3
+             if id6>0;
+              atemp1{cc}(id6,:)=[];
+               end;
+          
+          id7=find(atemp1{cc}(:,4)==(assingend11{cc}(d,4)+3*x)& atemp1{cc}(:,5)==(assingend11{cc}(d,5)-4*x)& atemp1{cc}(:,6)==(assingend11{cc}(d,6)-2*x)...
+              & atemp1{cc}(:,7)==assingend11{cc}(d,7) & atemp1{cc}(:,8)==assingend11{cc}(d,8)& atemp1{cc}(:,9)==assingend11{cc}(d,9)...
+              & atemp1{cc}(:,11)==assingend11{cc}(d,11)& atemp1{cc}(:,12)==assingend11{cc}(d,12)& atemp1{cc}(:,13)==assingend11{cc}(d,13));%+c3-h4o2
+         
+           
+              if id7>0;
+              atemp1{cc}(id7,:)=[];
+              
+           end;
+           
+       
+       end;    
+        
+    end;
+   
+    
+     [ aaa,assigned ]= setdiff(temp1{cc}(:,1),atemp1{cc}(:,1)); 
+    assingend111{cc}=temp1{cc}(assigned,:);
+     [ aaa2,assigned2 ]= setdiff(assingend111{cc}(:,1),a3(:,1)); 
+  assingend11{cc}=assingend111{cc}(assigned2,:);
+    a3=assingend111{cc};
+   
+     end;  
+   
+    z3{cc}=mean(abs(assingend1e{cc}(:,3)));%nspÍ¬Ô´ºóÑ¡ÔñÎó²îÐ¡ÓÚÆ½¾ùÎó²î·Ö×ÓÊ½£¬Ìá¸ß·Ö×ÓÊ½¼ø¶¨×¼È·ÐÔ
+      assingend111{cc}= assingend111{cc}(abs(assingend111{cc}(:,3))<= z3{cc},:);
+       assingend1ee{cc}=[assingend1e{cc};assingend111{cc};temp5_final{cc}];
+        assingend1ee{cc}=sortrows(assingend1ee{cc},1);
+         
+            assingend1eep{cc}= assingend1ee{cc}( assingend1ee{cc}(:,9)~=0,:);
+         assingend1eep{cc}= assingend1eep{cc}( abs(assingend1eep{cc}(:,3))<= z3{cc},:);
+         
+         c=size(assingend1eep{cc}(:,1));
+         for d=1:c(1);%¶Ôº¬P·Ö×ÓÊ½½øÐÐÂÈ»¯È·ÈÏ£»
+             if assingend1eep{cc}(d,9)==1;
+                   idd=find(filem{cc}.m_z>=(assingend1eep{cc}(d,1)+1.99455)&filem{cc}.m_z<=(assingend1eep{cc}(d,1)+1.99955));
+             
+                if  isempty(idd)==0;
+                    assingend1eep{cc}(d,:)==0;
+                end;
+             end;
+         end;
+          assingend1eep{cc}= assingend1eep{cc}( assingend1eep{cc}(:,1)~=0,:);
+        assingend1eenp{cc}= assingend1ee{cc}( assingend1ee{cc}(:,9)==0,:);
+          assingend1ee{cc}=[assingend1eep{cc}; assingend1eenp{cc}];
+           assingend1ee{cc}=sortrows(assingend1ee{cc},1);
+           
+ 
+   end;
+    nxtemp3=  assingend1ee;
+   nxtemp4=filem;
+   nxtemp6=  assingend1ee;
+    n=0;
+     for cc=1:aas(2);
+            nxtemp5{cc}=zeros(1000000,17); 
+    c=size( assingend1ee{cc}(:,1));
+       for d=1:c(1);
+           
+  
+ 
+               id1=find(nxtemp4{cc}.m_z>=(nxtemp3{cc}(d,1)+1.002355)&nxtemp4{cc}.m_z<=(nxtemp3{cc}(d,1)+1.004355)...
+              & nxtemp4{cc}.I>=(nxtemp3{cc}(d,4)*0.01082*nxtemp3{cc}(d,14)*0.85) & nxtemp4{cc}.I<=(nxtemp3{cc}(d,4)*0.01082*nxtemp3{cc}(d,14)*1.15)...
+              );
+              
+          if  isempty(id1)==0;
+             assingend1ee{cc}(d,10)=1;         
+          
+          end;
+       end;
+     end;
+     
+        for i=1:aas(2); 
+  t=table;
+t.mSigma=assingend1ee{i}(:,14);
+ 
+t.ObservedIntens=assingend1ee{i}(:,14);
+t.ObservedM_z=assingend1ee{i}(:,1);
+t.calc_M_z=assingend1ee{i}(:,2);
+t.errMDa=assingend1ee{i}(:,14);
+t.errPpm=assingend1ee{i}(:,3);
+t.sumFormula=assingend1ee{i}(:,14);
+ 
+t.C=assingend1ee{i}(:,4);t.H=assingend1ee{i}(:,5);t.N=assingend1ee{i}(:,7);
+t.O=assingend1ee{i}(:,6);t.P=assingend1ee{i}(:,9);t.S=assingend1ee{i}(:,8);
+t.H1=assingend1ee{i}(:,5)+1;
+t.Cl=assingend1ee{i}(:,11);t.Br=assingend1ee{i}(:,12);t.I=assingend1ee{i}(:,13);
+ 
+t.RI=assingend1ee{i}(:,15);
+t.sn=assingend1ee{i}(:,16);
+ 
+  t.HCraito=t.H1./t.C;
+    t.OCraito=t.O./t.C;
+     t.C13confirm=assingend1ee{i}(:,10);
+ 
+    
+     t.f1=num2str(t.C);
+t.f2=num2str(t.H);
+t.f3=num2str(t.N);
+t.f4=num2str(t.O);
+t.f5=num2str(t.P);
+t.f6=num2str(t.S);
+t.f7=num2str(t.Cl);
+t.f8=num2str(t.Br);
+t.f9=num2str(t.I);
+ 
+   c1=size(t.f1);
+c2=cell(c1(1),9);
+   for ii=1:c1(1);
+if t{ii,'C'}~=0; 
+    c2{ii,1}=strcat('C',t{ii,'f1'});
+        end;
+    if t{ii,'H'}~=0; 
+    c2{ii,2}=strcat('H',t{ii,'f2'});
+     end;
+    if t{ii,'O'}~=0; 
+    c2{ii,3}=strcat('O',t{ii,'f4'});
+    end;
+    if t{ii,'N'}~=0; 
+    c2{ii,4}=strcat('N',t{ii,'f3'});
+    end;
+    if t{ii,'S'}~=0; 
+    c2{ii,5}=strcat('S',t{ii,'f6'});
+     end;
+    if t{ii,'P'}~=0; 
+    c2{ii,6}=strcat('P',t{ii,'f5'});
+    end;
+    
+    if t{ii,'Cl'}~=0; 
+    c2{ii,7}=strcat('Cl',t{ii,'f7'});
+    end;
+    if t{ii,'Br'}~=0; 
+    c2{ii,8}=strcat('Br',t{ii,'f8'});
+    end;
+    if t{ii,'I'}~=0; 
+    c2{ii,9}=strcat('I',t{ii,'f9'});
+    end;
+    
+  
+ c2{ii,10}=strcat(c2{ii,1},c2{ii,2},c2{ii,3},c2{ii,4},c2{ii,5},c2{ii,6},c2{ii,7},c2{ii,8},c2{ii,9});
+ c2{ii,11}=strrep(c2{ii,10}, ' ', '');
+   end;
+ 
+    c3=cell2table(c2);
+t.sumFormula=c3{:,11};
+tt{i}=t(:,1:22);
+    
+ 
+     end;
+  filem1=tt;
+  
+  
+ 
+ 
+ 
+    for es=1:aas(2);
+        filem1{es}.sumintens=filem1{es}.ObservedIntens;
+        filem1{es}(:,'sumintens')=num2cell(sum(filem1{es}.ObservedIntens));
+        filem1{es}.relativeintens=filem1{es}.ObservedIntens./ filem1{es}.sumintens;
+        filem1{es}.avemass=filem1{es}.ObservedM_z;
+        filem1{es}(:,'avemass')=num2cell(sum(filem1{es}.ObservedM_z.*filem1{es}.relativeintens)); 
+     filem1{es}.dbe_o=1+(filem1{es}.C.*2-filem1{es}.H1-filem1{es}.Cl-filem1{es}.Br-filem1{es}.I+...
+        filem1{es}.N+filem1{es}.P)./2-filem1{es}.O;   
+    filem1{es}.aimod=(1+filem1{es}.C-...
+filem1{es}.H1./2-filem1{es}.O./2-filem1{es}.S-filem1{es}.N./2-filem1{es}.P./2)./(filem1{es}.C-filem1{es}.O./2-filem1{es}.S-filem1{es}.N-filem1{es}.P);
+      filem1{es}.dbe=1+(filem1{es}.C.*2-filem1{es}.H1-filem1{es}.Cl-filem1{es}.Br-filem1{es}.I...
+          +filem1{es}.N+filem1{es}.P)./2;
+      filem1{es}.nosc=4-(filem1{es}.C.*4+filem1{es}.H1+filem1{es}.Cl+filem1{es}.Br+filem1{es}.I-filem1{es}.N.*3-...
+          filem1{es}.O.*2-filem1{es}.S.*2)./filem1{es}.C;
+     filem1{es}.kmdch2=abs(round(filem1{es}.calc_M_z)-filem1{es}.calc_M_z...
+         .*(14./14.01565));
+     filem1{es}.nkmch2=round(filem1{es}.calc_M_z...
+         .*(14./14.01565));
+     filem1{es}.kmdh2=abs(round(filem1{es}.calc_M_z)-filem1{es}.calc_M_z...
+         .*(2./2.01565));
+     filem1{es}.nkmh2=round(filem1{es}.calc_M_z...
+         .*(2./2.01565));
+     filem1{es}.kmdh2o=abs(round(filem1{es}.calc_M_z)-filem1{es}.calc_M_z...
+         .*(18./18.010565));
+     filem1{es}.nkmh2o=round(filem1{es}.calc_M_z...
+         .*(18./18.010565));
+     filem1{es}.kmdo=abs(round(filem1{es}.calc_M_z)-filem1{es}.calc_M_z...
+         .*(16./15.994915));
+       filem1{es}.nkmo=round(filem1{es}.calc_M_z...
+         .*(16./15.994915));
+     filem1{es}.kmdcoo=abs(round(filem1{es}.calc_M_z)-filem1{es}.calc_M_z...
+         .*(44./43.989829));
+       filem1{es}.nkmcoo=round(filem1{es}.calc_M_z...
+         .*(44./43.989829));
+     
+     filem1{es}.chonsp=[filem1{es}.C,filem1{es}.H1,filem1{es}.O,...
+        filem1{es}.N,filem1{es}.S,filem1{es}.P];%½«CHOÁÐÊýÖµºÏ²¢³ÉÒ»ÁÐ£»
+filem1{es}.chonsp1=num2str(filem1{es}.chonsp);%½«ºÏ²¢ºóµÄCHOÊýÖµ×ª»»³É×Ö·ûÊý×é£»
+filem1{es}.chonsp2=cellstr(filem1{es}.chonsp1);%½«×Ö·ûÊý×é±ä³É×Ö·û´®£»
+ 
+    cho{es}=filem1{es}(find(filem1{es}.N==0&...
+    filem1{es}.S==0&filem1{es}.P==0&filem1{es}.Cl==0&filem1{es}.Br==0&filem1{es}.I==0),:);
+chon1{es}=filem1{es}(find(filem1{es}.N==1&...
+    filem1{es}.S==0&filem1{es}.P==0&filem1{es}.Cl==0&filem1{es}.Br==0&filem1{es}.I==0),:);
+chon2{es}=filem1{es}(find(filem1{es}.N==2&...
+    filem1{es}.S==0&filem1{es}.P==0&filem1{es}.Cl==0&filem1{es}.Br==0&filem1{es}.I==0),:);
+chos1{es}=filem1{es}(find(filem1{es}.N==0&...
+    filem1{es}.S==1&filem1{es}.P==0&filem1{es}.Cl==0&filem1{es}.Br==0&filem1{es}.I==0),:);
+chos2{es}=filem1{es}(find(filem1{es}.N==0&...
+    filem1{es}.S==2&filem1{es}.P==0&filem1{es}.Cl==0&filem1{es}.Br==0&filem1{es}.I==0),:);
+chon1s1{es}=filem1{es}(find(filem1{es}.N==1&...
+    filem1{es}.S==1&filem1{es}.P==0&filem1{es}.Cl==0&filem1{es}.Br==0&filem1{es}.I==0),:);
+chon2s1{es}=filem1{es}(find(filem1{es}.N==2&...
+    filem1{es}.S==1&filem1{es}.P==0&filem1{es}.Cl==0&filem1{es}.Br==0&filem1{es}.I==0),:);
+chon3{es}=filem1{es}(find(filem1{es}.N==3&...
+    filem1{es}.S==0&filem1{es}.P==0&filem1{es}.Cl==0&filem1{es}.Br==0&filem1{es}.I==0),:);
+chon4{es}=filem1{es}(find(filem1{es}.N==4&...
+    filem1{es}.S==0&filem1{es}.P==0&filem1{es}.Cl==0&filem1{es}.Br==0&filem1{es}.I==0),:);
+chon{es}=filem1{es}(find(filem1{es}.N~=0&...
+    filem1{es}.S==0&filem1{es}.P==0&filem1{es}.Cl==0&filem1{es}.Br==0&filem1{es}.I==0),:);
+chos{es}=filem1{es}(find(filem1{es}.N==0&...
+    filem1{es}.S~=0&filem1{es}.P==0&filem1{es}.Cl==0&filem1{es}.Br==0&filem1{es}.I==0),:);
+chons{es}=filem1{es}(find(filem1{es}.N~=0&...
+    filem1{es}.S~=0&filem1{es}.P==0&filem1{es}.Cl==0&filem1{es}.Br==0&filem1{es}.I==0),:);
+chop1{es}=filem1{es}(find(filem1{es}.N==0&...
+    filem1{es}.S==0&filem1{es}.P==1&filem1{es}.Cl==0&filem1{es}.Br==0&filem1{es}.I==0),:);
+chop2{es}=filem1{es}(find(filem1{es}.N==0&...
+    filem1{es}.S==0&filem1{es}.P==2&filem1{es}.Cl==0&filem1{es}.Br==0&filem1{es}.I==0),:);
+chop{es}=filem1{es}(find(filem1{es}.N==0&...
+    filem1{es}.S==0&filem1{es}.P~=0&filem1{es}.Cl==0&filem1{es}.Br==0&filem1{es}.I==0),:);
+chonp{es}=filem1{es}(find(filem1{es}.N~=0&...
+    filem1{es}.S==0&filem1{es}.P~=0&filem1{es}.Cl==0&filem1{es}.Br==0&filem1{es}.I==0),:);
+chonsp{es}=filem1{es}(find(filem1{es}.N~=0&...
+    filem1{es}.S~=0&filem1{es}.P~=0&filem1{es}.Cl==0&filem1{es}.Br==0&filem1{es}.I==0),:);
+chosp{es}=filem1{es}(find(filem1{es}.N==0&...
+    filem1{es}.S~=0&filem1{es}.P~=0&filem1{es}.Cl==0&filem1{es}.Br==0&filem1{es}.I==0),:);
+chocl1{es}=filem1{es}(find(filem1{es}.N==0&...
+    filem1{es}.S==0&filem1{es}.P==0&filem1{es}.Cl==1&filem1{es}.Br==0&filem1{es}.I==0),:);
+chocl2{es}=filem1{es}(find(filem1{es}.N==0&...
+    filem1{es}.S==0&filem1{es}.P==0&filem1{es}.Cl==2&filem1{es}.Br==0&filem1{es}.I==0),:);
+chocl3{es}=filem1{es}(find(filem1{es}.N==0&...
+    filem1{es}.S==0&filem1{es}.P==0&filem1{es}.Cl==3&filem1{es}.Br==0&filem1{es}.I==0),:);
+chobr1{es}=filem1{es}(find(filem1{es}.N==0&...
+    filem1{es}.S==0&filem1{es}.P==0&filem1{es}.Cl==0&filem1{es}.Br==1&filem1{es}.I==0),:);
+chobr2{es}=filem1{es}(find(filem1{es}.N==0&...
+    filem1{es}.S==0&filem1{es}.P==0&filem1{es}.Cl==0&filem1{es}.Br==2&filem1{es}.I==0),:);
+chobr3{es}=filem1{es}(find(filem1{es}.N==0&...
+    filem1{es}.S==0&filem1{es}.P==0&filem1{es}.Cl==0&filem1{es}.Br==3&filem1{es}.I==0),:);
+choI1{es}=filem1{es}(find(filem1{es}.N==0&...
+    filem1{es}.S==0&filem1{es}.P==0&filem1{es}.Cl==0&filem1{es}.Br==0&filem1{es}.I==1),:);
+choI2{es}=filem1{es}(find(filem1{es}.N==0&...
+    filem1{es}.S==0&filem1{es}.P==0&filem1{es}.Cl==0&filem1{es}.Br==0&filem1{es}.I==2),:);
+choI3{es}=filem1{es}(find(filem1{es}.N==0&...
+    filem1{es}.S==0&filem1{es}.P==0&filem1{es}.Cl==0&filem1{es}.Br==0&filem1{es}.I==3),:);
+chocl{es}=filem1{es}(find(filem1{es}.N==0&...
+    filem1{es}.S==0&filem1{es}.P==0&filem1{es}.Cl~=0&filem1{es}.Br==0&filem1{es}.I==0),:);
+chobr{es}=filem1{es}(find(filem1{es}.N==0&...
+    filem1{es}.S==0&filem1{es}.P==0&filem1{es}.Cl==0&filem1{es}.Br~=0&filem1{es}.I==0),:);
+choI{es}=filem1{es}(find(filem1{es}.N==0&...
+    filem1{es}.S==0&filem1{es}.P==0&filem1{es}.Cl==0&filem1{es}.Br==0&filem1{es}.I~=0),:);
+choncl{es}=filem1{es}(find(filem1{es}.N~=0&...
+    filem1{es}.S==0&filem1{es}.P==0&filem1{es}.Cl~=0&filem1{es}.Br==0&filem1{es}.I==0),:);
+choscl{es}=filem1{es}(find(filem1{es}.N==0&...
+    filem1{es}.S~=0&filem1{es}.P==0&filem1{es}.Cl~=0&filem1{es}.Br==0&filem1{es}.I==0),:);
+chonbr{es}=filem1{es}(find(filem1{es}.N~=0&...
+    filem1{es}.S==0&filem1{es}.P==0&filem1{es}.Cl==0&filem1{es}.Br~=0&filem1{es}.I==0),:);
+chosbr{es}=filem1{es}(find(filem1{es}.N==0&...
+    filem1{es}.S~=0&filem1{es}.P==0&filem1{es}.Cl==0&filem1{es}.Br~=0&filem1{es}.I==0),:);
+ 
+chonI{es}=filem1{es}(find(filem1{es}.N~=0&...
+    filem1{es}.S==0&filem1{es}.P==0&filem1{es}.Cl==0&filem1{es}.Br==0&filem1{es}.I~=0),:);
+chosI{es}=filem1{es}(find(filem1{es}.N==0&...
+    filem1{es}.S~=0&filem1{es}.P==0&filem1{es}.Cl==0&filem1{es}.Br==0&filem1{es}.I~=0),:);
+chonspcl{es}=filem1{es}(find(filem1{es}.N~=0&...
+    filem1{es}.S~=0&filem1{es}.P~=0&filem1{es}.Cl~=0&filem1{es}.Br==0&filem1{es}.I==0),:);
+chonspbr{es}=filem1{es}(find(filem1{es}.N~=0&...
+    filem1{es}.S~=0&filem1{es}.P~=0&filem1{es}.Cl==0&filem1{es}.Br~=0&filem1{es}.I==0),:);
+chonspI{es}=filem1{es}(find(filem1{es}.N~=0&...
+    filem1{es}.S~=0&filem1{es}.P~=0&filem1{es}.Cl==0&filem1{es}.Br==0&filem1{es}.I~=0),:);
+ 
+    end;
+    waitbar(5/5,bar);
+      close(bar);
+      
+        chonsptotal=filem1;
+        
+        [s3,v3]=listdlg('name','formula type selected','promptstring','select the formula type',...
+ 'SelectionMode','MultiSelect','ListSize',[300,400],'liststring',filen);
+ 
+if v3~=0;
+str1={'chonsptotal';'cho';'chon'; 'chos';...
+    'chons';'chon1';'chon2';'chon3';'chon4';...
+    'chos1';'chos2';'chon1s1';'chon2s1';...
+    'chop1';'chop2';'chop';'chonp';'chosp';'chonsp';'chocl1'; 'chocl2'; 'chocl3'; 'chobr1'; 'chobr2'; 'chobr3';...
+    'choI1'; 'choI2'; 'choI3'; 'chocl'; 'chobr'; 'choI'; 'choncl'; 'choscl'; 'chonbr'; 'chosbr';...
+'chonI'; 'chosI'; 'chonspcl'; 'chonspbr'; 'chonspI'};
+filemulti={chonsptotal,cho,chon,chos,chons,chon1,...
+    chon2,chon3,chon4,chos1,chos2,chon1s1,chon2s1,...
+    chop1,chop2,chop,chonp,chosp,chonsp,chocl1,chocl2,chocl3,chobr1,chobr2,chobr3,...
+    choI1,choI2,choI3,chocl,chobr,choI,choncl,choscl,chonbr,chosbr,...
+chonI,chosI,chonspcl,chonspbr,chonspI};
+[s,v]=listdlg('name','formula type selected','promptstring','select the formula type',...
+ 'SelectionMode','single','ListSize',[300,400],'liststring',str1); 
+ 
+mkdir(path,'result');
+pa=strcat(path,'result\');
+aas=size(filen);
+ 
+ for pp=1:aas(2);
+     filep{pp}=strcat(pa,filen{pp});
+ end;
+ 
+ for cc=1:aas(2);
+     
+     if va7==0&va8==0&va9==0;
+         filemulti{1,s}{cc}(:,15:17)=[];
+     else if va7~=0&va8==0&va9==0;
+         filemulti{1,s}{cc}(:,16:17)=[];
+          else if va7==0&va8~=0&va9==0;
+         filemulti{1,s}{cc}(:,15)=[];
+         filemulti{1,s}{cc}(:,16)=[];
+              else if va7==0&va8==0&va9~=0;
+                       filemulti{1,s}{cc}(:,15:16)=[];
+                  else if    va7~=0&va8~=0&va9==0;
+                           filemulti{1,s}{cc}(:,17)=[]; 
+                      else if  va7~=0&va8==0&va9~=0;
+                              
+                                filemulti{1,s}{cc}(:,16)=[];
+                                  else if  va7==0&va8~=0&va9~=0;
+                              
+                                filemulti{1,s}{cc}(:,15)=[];
+                                      else if va7~=0&va8~=0&va9~=0;
+                                  filemulti{1,s}{cc}=  filemulti{1,s}{cc};
+                                          end;
+                                      end;
+                          end;
+                      end;
+                  end;
+              end;
+         end;
+     end;
+     if va4==0;
+          filemulti{1,s}{cc}.N=[];
+     end;
+         if va5==0;
+          filemulti{1,s}{cc}.S=[];  
+           end;
+           if va6==0;
+          filemulti{1,s}{cc}.P=[];
+           end;
+     filemulti{1,s}{cc}.mSigma=[];
+     filemulti{1,s}{cc}.errMDa=[];
+writetable(filemulti{1,s}{cc}(:,1:17),filep{cc});
+ end;
+ 
+ 
+ end;
+ 
+ 
+    
+
